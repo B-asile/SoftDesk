@@ -3,7 +3,7 @@ from . import models
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """Serializes a user profile object"""
+    """Serialization de l'objet du profil utilisateur"""
 
     class Meta:
         model = models.User
@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        """function who overwrite model"""
+        """fonction de validation_data <<passe par dessus le modèle>>"""
         user = models.User.objects.create_user(
             email=validated_data['email'],
             first_name=validated_data['first_name'],
@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        """Handle updating user account"""
+        """Géstion de la mise à jour du compte utilisateur"""
         if 'password' in validated_data:
             password = validated_data.pop('password')
             instance.set_password(password)

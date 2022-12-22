@@ -18,8 +18,11 @@ from django.urls import path, include
 from authentication.views import UserApiLogin, UserApiRegister
 from rest_framework_nested import routers
 
+from globalapp.views import ProjectApiView
+
 router = routers.DefaultRouter()
 router.register(r'signup', UserApiRegister)
+router.register(r'projects', ProjectApiView)
 
 
 urlpatterns = [
