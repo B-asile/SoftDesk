@@ -18,15 +18,26 @@ from django.urls import path, include
 from authentication.views import UserApiLogin, UserApiRegister
 from rest_framework_nested import routers
 
-from globalapp.views import ProjectApiView
+from globalapp.views import ProjectApiView, ContributorApiView, IssueApiView, CommentApiView
+
 
 router = routers.DefaultRouter()
 router.register(r'signup', UserApiRegister)
 router.register(r'projects', ProjectApiView)
+
+router_project = routers.NestedSimpleRouter(router, r'projects', lookup='projects')
+router_project.register(r'users', ContributorApiView, basename='project_to_contributors')
+router_project.register(r'issues', IssueApiView, basename='project_to_issue')
+
+router_issue = routers.NestedSimpleRouter(router_project, r'issues', lookup='issues')
+router_issue.register(r'comments', CommentApiView, basename='issue_to_comment')
+
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", UserApiLogin.as_view()),
     path("", include(router.urls)),
+    path("", include(router_project.urls)),
+    path("",include(router_issue.urls)),
 ]
