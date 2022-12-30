@@ -15,13 +15,15 @@ class Projects(models.Model):
     description = models.CharField(max_length=1024)
     type = models.CharField(max_length=16, choices=project_type)
     author_user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='author_project_id')
+    contribs = models.ManyToManyField(to=User, through='Contributors', related_name='project_contrib_user')
 
     def __str__(self):
         return self.title
 
 
 class Contributors(models.Model):
-    PERMISSION = [('author', 'author'),
+    PERMISSION = [('auteur', 'auteur'),
+                  ('responsable', 'responsable'),
                   ('contributeur', 'contributeur')]
 
     user_id = models.ForeignKey(to=User, on_delete=models.CASCADE)
@@ -67,7 +69,7 @@ class Issues(models.Model):
 
 class Comments(models.Model):
     description = models.CharField(max_length=1024)
-    author_user_id = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    author_user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='author_comment_id')
     issue_id = models.ForeignKey(to=Issues, on_delete=models.CASCADE)
     create_time = models.DateTimeField(auto_now_add=True)
 
