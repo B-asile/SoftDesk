@@ -41,8 +41,13 @@ INSTALLED_APPS = [
     "globalapp",
     "rest_framework",
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASS':
+        ('rest_framework_simplejwt.authentication.JWTAuthentication')
+}
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
