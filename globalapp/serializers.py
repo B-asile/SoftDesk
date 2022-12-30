@@ -17,14 +17,18 @@ class ContributorsSerializers(serializers.ModelSerializer):
         model = Contributors
         fields = "__all__"
 
+        extra_kwargs = {'author_user_id': {'read_only': True},
+                        'project_id': {'read_only': True}
+                        }
+
 
 class IssuesSerializers(serializers.ModelSerializer):
     class Meta:
         model = Issues
         fields = "__all__"
 
-        extra_kwargs = {'author_user_id': {'read_only': True},
-                        'project_id': {'read_only': True}
+        extra_kwargs = {'project_id': {'read_only': True},
+                        'author_user_id': {'read_only': True}
                         }
 
 
@@ -32,3 +36,5 @@ class CommentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = "__all__"
+
+        extra_kwargs = {'author_user_id': {'read_only': True}}

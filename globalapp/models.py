@@ -34,6 +34,9 @@ class Contributors(models.Model):
     def __str__(self):
         return self.user_id
 
+    class Meta:
+        unique_together = [['user_id', 'project_id']]
+
 
 class Issues(models.Model):
 
