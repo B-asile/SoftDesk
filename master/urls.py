@@ -25,14 +25,13 @@ router = routers.DefaultRouter()
 router.register(r'signup', UserApiRegister)
 router.register(r'projects', ProjectApiView)
 
+
 router_project = routers.NestedSimpleRouter(router, r'projects', lookup='projects')
 router_project.register(r'users', ContributorApiView, basename='project_to_contributors')
 router_project.register(r'issues', IssueApiView, basename='project_to_issue')
 
 router_issue = routers.NestedSimpleRouter(router_project, r'issues', lookup='issues')
 router_issue.register(r'comments', CommentApiView, basename='issue_to_comment')
-
-
 
 urlpatterns = [
     path("admin/", admin.site.urls),

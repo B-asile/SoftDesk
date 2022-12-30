@@ -123,5 +123,9 @@ STATIC_URL = "static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'user_id'
+}
+
 AUTH_USER_MODEL = 'authentication.User'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
