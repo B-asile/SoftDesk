@@ -40,12 +40,12 @@ INSTALLED_APPS = [
     "authentication",
     "globalapp",
     "rest_framework",
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASS':
+    'DEFAULT_AUTHENTICATION_CLASSES':
         ('rest_framework_simplejwt.authentication.JWTAuthentication')
 }
 MIDDLEWARE = [
@@ -124,8 +124,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=3600),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=7200),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
 }
 
 AUTH_USER_MODEL = 'authentication.User'
