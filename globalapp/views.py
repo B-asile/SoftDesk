@@ -1,16 +1,14 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Projects, Contributors, Issues, Comments
 from .serializers import ProjectsSerializers, ContributorsSerializers, IssuesSerializers, CommentsSerializers
-from master.permissions import Update_own_profile, Update_projects, Update_issues
+from master.permissions import Update_own_profile, Update_projects, Update_issues, Update_contributors
 
 
 class ProjectApiView(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication, )
     serializer_class = ProjectsSerializers
     queryset = Projects.objects.all()
     permission_classes = (IsAuthenticated,
@@ -31,10 +29,9 @@ class ProjectApiView(viewsets.ModelViewSet):
 
 
 class ContributorApiView(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
     serializer_class = ContributorsSerializers
     queryset = Contributors.objects.all()
-    permission_classes = (IsAuthenticated, Update_own_profile)
+    permission_classes = (IsAuthenticated, Update_contributors, )
 
     def perform_create(self, serializer):
         do_not_change_project_id = serializer.save(project_id=get_object_or_404(Projects, pk=self.kwargs['projects_pk']))
@@ -45,7 +42,6 @@ class ContributorApiView(viewsets.ModelViewSet):
 
 
 class IssueApiView(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
     serializer_class = IssuesSerializers
     queryset = Issues.objects.all()
     permission_classes = (IsAuthenticated,
@@ -64,7 +60,6 @@ class IssueApiView(viewsets.ModelViewSet):
 
 
 class CommentApiView(viewsets.ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
     serializer_class = CommentsSerializers
     queryset = Comments.objects.all()
     permission_classes = (IsAuthenticated, Update_issues )

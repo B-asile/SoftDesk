@@ -9,7 +9,7 @@ from master.permissions import Update_own_profile
 class UserApiRegister(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    authentication_classes = (TokenAuthentication,)
+    #authentication_classes = (TokenAuthentication,)
     permission_classes = (Update_own_profile, )
 
 
