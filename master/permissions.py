@@ -4,84 +4,76 @@ from rest_framework.generics import get_object_or_404
 from globalapp.models import Projects
 
 
-class Update_own_profile(permissions.BasePermission):
-    ''''''
-
+class UpdateOwnProfile(permissions.BasePermission):
+    """
+    Accès lecture liste des utilisateurs pour tous les utilisateurs
+    Accès en écriture pour son propre profile utilisateur
+    """
     def has_object_permission(self, request, view, obj):
-        '''toutes les methodes lecture sont autorisées'''
         if request.method in permissions.SAFE_METHODS:
-            '''toutes les methodes lecture sont autorisées'''
             return True
         elif obj.id == request.user.id:
-            '''autorisation de modification objects appartenant a utilisateur_identifié'''
             return True
         else:
             return False
-'''
-class Update_projects_read(permissions.BasePermission):
 
+
+class UpdateProjects(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            for i in obj.contribs.all():
-                if i.id == request.user.id:
-                    return True, print('contrib ok')
-        else:
-            return False
-
-
-class Update_projects_write(permissions.BasePermission):
-
-    def has_object_permission(self, request, view, obj):
-        print(obj.author_user_id.id)
-        print(request.user.id)
-        if obj.author_user_id.id == request.user.id:
-            return True, print('check author ok')
-        else:
-            return False, print('check KO')
-'''
-
-class Update_projects(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
+        """
+        Accès en lecture aux contributeurs d'un projet
+        Accès en écriture à l'auteur d'un projet
+        """
         if request.method in permissions.SAFE_METHODS:
             for i in obj.contribs.all():
                 if i.id == request.user.id:
                     return True
         return obj.author_user_id.id == request.user.id
 
-class Update_issues(permissions.BasePermission):
+
+class UpdateIssues(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
+        """
+        Accès en lecture aux contributeurs d'une issue
+        Accès en écriture à l'auteur d'une issue
+        """
         if request.method in permissions.SAFE_METHODS:
-            proj_of_issue=get_object_or_404(Projects, pk=view.kwargs['projects_pk'])
+            proj_of_issue = get_object_or_404(Projects, pk=view.kwargs['projects_pk'])
             for i in proj_of_issue.contribs.all():
                 if i.id == request.user.id:
                     return True
         return obj.author_user_id.id == request.user.id
 
-class Update_contributors(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        '''authorisation d'acces pour la section contributeurs
-        -si user authentifié appartiend à la liste des contributeurs projet authorisation safeMethode
-        - si id personne co == id contrib recherché -> droit en écriture
-        -si id co==autheur projet -> droit en écriture sur projet+contrib'''
-        proj_of_contrib = get_object_or_404(Projects, pk=view.kwargs['projects_pk'])
-        if request.method in permissions.SAFE_METHODS:
-            for i in proj_of_contrib.contribs.all():
-                if i.id == request.user.id:
-                    return True, print('sol1')
-        elif obj.user_id.id == request.user.id:
-            return True, print('sol2')
-        elif proj_of_contrib.author_user_id.id == request.user.id:
-            return True, print('sol3')
 
-class Update_comments(permissions.BasePermission):
+class UpdateContributors(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
+        """
+        Accès en lecture a la liste des contributeurs du projet
+        Accès en écriture à l'auteur d'un projet
+        """
         proj_of_contrib = get_object_or_404(Projects, pk=view.kwargs['projects_pk'])
         if request.method in permissions.SAFE_METHODS:
             for i in proj_of_contrib.contribs.all():
                 if i.id == request.user.id:
-                    return True, print('sol1')
-        elif obj.author_user_id.id == request.user.id:
-            return True, print('sol2')
+                    return True
+        elif obj.user_id.id == request.user.id:
+            return True
         elif proj_of_contrib.author_user_id.id == request.user.id:
-            '''author_user_id du projet!'''
-            return True, print('sol3')
+            return True
+
+
+class UpdateComments(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        """
+        Accès en lecture a la liste des commentaires du projet
+        Accès en écriture à l'auteur d'un commentaire
+        """
+        proj_of_contrib = get_object_or_404(Projects, pk=view.kwargs['projects_pk'])
+        if request.method in permissions.SAFE_METHODS:
+            for i in proj_of_contrib.contribs.all():
+                if i.id == request.user.id:
+                    return True
+        elif obj.author_user_id.id == request.user.id:
+            return True
+        elif proj_of_contrib.author_user_id.id == request.user.id:
+            return True

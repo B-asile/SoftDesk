@@ -39,7 +39,6 @@ class Contributors(models.Model):
 
 
 class Issues(models.Model):
-
     priorite = [
         ('FAIBLE', 'Faible'),
         ('MOYENNE', 'Moyenne'),

@@ -3,9 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 
 class UserManager(BaseUserManager):
-    """User profiles Manager : Create & save"""
+    """User profiles Manager : création & sauvegarde"""
     def create_user(self, email, first_name, last_name, password=None):
-        """create a new user profile"""
+        """Création d'un nouveau profil utilisateur"""
         if not email:
             raise ValueError('adresse email requise ou invalide')
         user = self.model(
@@ -18,7 +18,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, first_name, last_name, password):
-        """create a new superuser"""
+        """Création d'un nouveau profil administrateur"""
         user = self.create_user(
             email,
             first_name,
@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """Database model for users in the system"""
+    """Model de base de données pour un utilisateur dans le système"""
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,

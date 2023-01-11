@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        """fonction de validation_data <<passe par dessus le modèle>>"""
+        """Fonction de validation_data <<passe par dessus le modèle>>"""
         user = models.User.objects.create_user(
             email=validated_data['email'],
             first_name=validated_data['first_name'],

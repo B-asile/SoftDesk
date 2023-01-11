@@ -37,4 +37,6 @@ class CommentsSerializers(serializers.ModelSerializer):
         model = Comments
         fields = "__all__"
 
-        extra_kwargs = {'author_user_id': {'read_only': True}}
+        extra_kwargs = {'author_user_id': {'read_only': True},
+                        'issue_id': {'read_only': True}
+                        }
