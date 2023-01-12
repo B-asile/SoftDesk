@@ -49,6 +49,7 @@ class UpdateContributors(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         """
         Accès en lecture a la liste des contributeurs du projet
+        Accès en écriture au contributeur si c'est lui-même
         Accès en écriture à l'auteur d'un projet
         """
         proj_of_contrib = get_object_or_404(Projects, pk=view.kwargs['projects_pk'])
@@ -67,6 +68,7 @@ class UpdateComments(permissions.BasePermission):
         """
         Accès en lecture a la liste des commentaires du projet
         Accès en écriture à l'auteur d'un commentaire
+        Accès en écriture à l'auteur du projet
         """
         proj_of_contrib = get_object_or_404(Projects, pk=view.kwargs['projects_pk'])
         if request.method in permissions.SAFE_METHODS:

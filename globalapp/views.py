@@ -36,7 +36,10 @@ class ProjectApiView(viewsets.ModelViewSet):
 class ContributorApiView(viewsets.ModelViewSet):
     serializer_class = ContributorsSerializers
     queryset = Contributors.objects.all()
-    permission_classes = (IsAuthenticated, UpdateContributors,)
+    permission_classes = (
+        IsAuthenticated,
+        UpdateContributors,
+    )
 
     def perform_create(self, serializer):
         """Récupération project_id pour ajout par default"""
@@ -79,7 +82,10 @@ class IssueApiView(viewsets.ModelViewSet):
 class CommentApiView(viewsets.ModelViewSet):
     serializer_class = CommentsSerializers
     queryset = Comments.objects.all()
-    permission_classes = (IsAuthenticated, UpdateComments)
+    permission_classes = (
+        IsAuthenticated,
+        UpdateComments
+    )
 
     def perform_create(self, serializer):
         '''Par default création commentaire avec author_user_id'''
