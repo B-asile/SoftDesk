@@ -1,4 +1,4 @@
-# P9 API sécurisée RESTful avec Django REST #
+# P10 API sécurisée RESTful avec Django REST #
 ## installation: ##
 Cette application executable localement peut être installée en suivant les étapes ci-dessous.
 1. Cloner le dépôt de code à l'aide de la commande ```$ git clone https://github.com/B-asile/LITreviewP9OC.git``` vous pouvez également télécharger le code en tant qu'archive zip.
