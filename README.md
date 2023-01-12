@@ -19,4 +19,4 @@ La connection via ces utilisateurs se fait avec ces identifiants :
 7. Pour desactiver l'environnement virtuel commande:  ```$ deactivate``` dans le terminal.
 
 ## documentation Postman de l'API: ##
-Une documentation Postman contenant des détails sur chaque point de terminaison est disponible via ce lien [https://www.postman.com/b-asile/workspace/softdesk/api/5061e4f6-f15b-411e-980c-5559a1b357c1/documentation/19538644-c5eac461-9f79-458a-bf36-8957620a6969?version=dc5caeff-5eda-47c2-9a02-e60cc0f93db7](SoftDesk_API).
+Une documentation Postman contenant des détails sur chaque point de terminaison est disponible via ce lien [SoftDesk_API](https://www.postman.com/b-asile/workspace/softdesk/api/5061e4f6-f15b-411e-980c-5559a1b357c1/documentation/19538644-c5eac461-9f79-458a-bf36-8957620a6969?version=dc5caeff-5eda-47c2-9a02-e60cc0f93db7).
